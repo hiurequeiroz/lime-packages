@@ -1,0 +1,24 @@
+#!/bin/sh
+
+update_ffopenmppt () {
+}
+
+# check if ffopenmppt are enabled in /etc/config/ffopenmppt
+enabled=$(uci get ffopenmppt.base_config.enabled)
+
+if  [ "$1" = "start" ]; then
+	echo "Running ffopenmppt"
+	update_ffopenmppt
+	exit
+elif [ "$1" = "update" ] ; then
+	update_ffopenmppt
+	exit
+elif [ "$enabled" = "1" ]; then
+	update_ffopenmppt
+	exit
+else
+	echo "ffopenmppt are disabled. Try running ffopenmppt start"
+	exit
+	
+fi
+

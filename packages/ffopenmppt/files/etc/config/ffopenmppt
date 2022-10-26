@@ -1,0 +1,22 @@
+config base_config 'base_config'
+    option enabled '0'
+
+config ffopenmppt
+
+	# Power save level. Default 0 == off.
+	option powersave '0'
+
+	# Rated MPP power of solar module(s) in Watt 
+	option solar_module_capacity '20'
+
+	# Maximum power consumption of router in Ampere
+	option maximum_power_consumption '0.2'
+
+	# Rated battery capacity in Amperehours (Ah)
+	option rated_batt_capacity '18'
+	
+	# Serial communication port
+	option serial_port 'ttyS0'
+	
+	# Secondary physical radio interface that can be disabled to save power
+	option powersave_interface '1'

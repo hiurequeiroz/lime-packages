@@ -1,0 +1,21 @@
+#!/bin/sh /etc/rc.common
+
+START=99
+NAME=ffopenmppt
+PROG=/usr/bin/ffopenmppt
+
+start() {
+    if  [ $(uci get ffopenmppt.base_config.enabled) == 1 ]; then
+        logger -t ffopenmppt "Running ffopenmppt"
+        $PROG
+        # start
+    else
+        logger -t ffopenmppt "FF-OpenMppt is disabled"
+    fi
+}
+
+stop () {
+    # stop
+    $PROG stop
+    logger -t ffopenmppt "ffopenMppt stopped"
+}
