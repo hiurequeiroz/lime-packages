@@ -7,6 +7,8 @@ while true; do
 
 setting=0
 
+# If the ffoppenmppt variable as set 1 we just put the radio in power save mode, 
+# but need to check if this option was implemented in the iw version on LiMe
 while [ `uci get ffopenmppt.@ffopenmppt[0].powersave` -eq 1 ] ;
     
 do     	if [ $setting -eq 0 ]; then
@@ -22,12 +24,16 @@ do     	if [ $setting -eq 0 ]; then
         
         done
         
-        
+# if the option is 2 then disable the radio
+
 while [ `uci get ffopenmppt.@ffopenmppt[0].powersave` -eq 2 ] ;
     
 do      echo "powersave mode 2 active" > /tmp/powersave
         
         if [ $setting -eq 0 ]; then
+
+# Here need to change, instead this options to come from the ffopemmppt option,
+# must simple consult what are the active interfaces and then disable all
 
 	phy=`uci get ffopenmppt.@ffopenmppt[0].powersave_interface`
 
@@ -52,6 +58,7 @@ while [ `uci get ffopenmppt.@ffopenmppt[0].powersave` -eq 3 ] ;
 do 	echo "powersave mode 3 active" > /tmp/powersave
 		
 	stationcount=0 
+# need to adapt wlan to LiMe
 	for i in `ifconfig | grep wlan | cut -d \  -f 1`; do 
 	stations=`iw dev $i station dump  | grep Station | wc -l`
 	stationcount="$(( stationcount + stations))"; done
@@ -77,7 +84,7 @@ do 	echo "powersave mode 3 active" > /tmp/powersave
 while [ `uci get ffopenmppt.@ffopenmppt[0].powersave` -eq 4 ] ;
 
 do      echo "powersave mode 4 active" > /tmp/powersave
-
+# need to adapt wlan to LiMe
         for i in `ifconfig | grep wlan | cut -d \  -f 1`; do
         stations=`iw dev $i station dump  | grep Station | wc -l`
         stationcount="$(( stationcount + stations))";
@@ -116,15 +123,15 @@ do    	 echo "powersave mode 5 active" > /tmp/powersave
          done
 
          
-while [ `uci get ffopenmppt.@ffopenmppt[0].powersave` -eq 6 ] ;
+# while [ `uci get ffopenmppt.@ffopenmppt[0].powersave` -eq 6 ] ;
 
-do    	echo "powersave mode 6 active" > /tmp/powersave
-        if [ `date +%H` -eq 00 ]; 
-        then echo "P=300" > /dev/`uci get ffopenmppt.@ffopenmppt[0].serial_port`; fi
+# do    	echo "powersave mode 6 active" > /tmp/powersave
+#         if [ `date +%H` -eq 00 ]; 
+#         then echo "P=300" > /dev/`uci get ffopenmppt.@ffopenmppt[0].serial_port`; fi
          
-        sleep 90;
+#         sleep 90;
          
-        done
+#         done
 
-sleep 60;
-done
+# sleep 60;
+# done
